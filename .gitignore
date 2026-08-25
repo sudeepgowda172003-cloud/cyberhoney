@@ -1,0 +1,19 @@
+# Virtual environments
+soc/
+venv/
+env/
+.env
+
+# Python compilation files
+__pycache__/
+*.pyc
+*.pyo
+
+# Logs and temporary files
+logs/
+*.log
+*.zip
+
+# OS generated files
+.DS_Store
+*Zone.Identifier

@@ -2,9 +2,12 @@ honeyfiles:
   - passwords.txt
   - secret_keys.pem
   - bank_accounts.xlsx
+  - db_admin_credentials.txt
+  - admin_portal.html
 
 paths:
   - ./honeyfiles/
+  - /home/sudeep/Desktop/
 
 rotation:
   enabled: true
@@ -19,3 +22,9 @@ alerts:
 logging:
   format: jsonl     # jsonl or text
   encrypted: false  # if true, uses AES via utils/encryption.py
+
+# Remote Dashboard (hosted on InfinityFree)
+remote_dashboard:
+  enabled: true
+  url: "https://soctestone.free.je/api/ingest.php"
+  api_key: "hg_fbd8fe82b8cffd4e28fc02f4796ef49a094586a2fabacd7b"

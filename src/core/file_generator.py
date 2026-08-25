@@ -20,10 +20,30 @@ def _random_suffix(n=6):
 def write_honeyfile(path, name, content=None):
     os.makedirs(path, exist_ok=True)
     fpath = os.path.join(path, name)
-    if content is None:
-        content = random.choice(DUMMY_CONTENTS)
-    with open(fpath, "w", encoding="utf-8") as f:
-        f.write(f"Dummy sensitive data: {content}\n")
+    
+    if name.endswith('.html') or name.endswith('.htm'):
+        # Generate an HTML Canary Token
+        import uuid
+        token_id = str(uuid.uuid4())[:8]
+        html_content = f"""<!DOCTYPE html>
+<html>
+<head><title>Admin Portal Access</title></head>
+<body>
+    <h1>Restricted Admin Area</h1>
+    <p>Please log in using the secure gateway.</p>
+    <!-- Tracking Pixel -->
+    <img src="https://soctestone.free.je/api/canary.php?id={token_id}" width="1" height="1" style="display:none;" />
+</body>
+</html>"""
+        with open(fpath, "w", encoding="utf-8") as f:
+            f.write(html_content)
+    else:
+        # Standard Dummy Content
+        if content is None:
+            content = random.choice(DUMMY_CONTENTS)
+        with open(fpath, "w", encoding="utf-8") as f:
+            f.write(f"Dummy sensitive data: {content}\n")
+            
     log_event(f"Honeyfile ensured → {fpath}", "INFO", {"file": fpath})
     return fpath
 
